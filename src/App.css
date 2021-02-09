@@ -1,0 +1,14 @@
+p{
+    font-style: normal;
+    font-size: medium;
+    font-weight: 1000;
+}
+
+.formdata {
+    width: 20rem;
+    max-width: 50%;
+    margin: 2rem auto;
+    border: 1px solid #ccc;
+    padding: 1.5rem;
+  }
+  
