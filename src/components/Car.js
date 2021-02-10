@@ -12,9 +12,9 @@ export default function Car({ Cardata, images }) {
         <p>{Cardata.brand}</p>
       </div>
       <div>
-        <img src={images.img1}></img>
-        <img src={images.img2}></img>
-        <img src={images.img3}></img>
+        <img src={images.img1} alt={'car'}></img>
+        <img src={images.img2} alt={'car'}></img>
+        <img src={images.img3} alt={'car'}></img>
       </div>
     </div>
   );

@@ -20,48 +20,45 @@ export default function App() {
         dateofadmission: response.data.datum_eerste_toelating,
         brand: response.data.brandstof[0].brandstof_omschrijving,
       });
+
+      const sstk = require('shutterstock-api');
+
+      const applicationConsumerId = '2N2fVuxdSjAOOhtozvbw8nFK5ERKGnmo';
+      const applicationConsumerSecret = 'BjGn6yjZmODyauQD';
+      sstk.setBasicAuth(applicationConsumerId, applicationConsumerSecret);
+
+      const imagesApi = new sstk.ImagesApi();
+
+      const queryParams = {
+        query: Cardata.brand,
+        image_type: 'photo',
+        page: 2,
+        per_page: 3,
+        sort: 'popular',
+        view: 'minimal',
+      };
+
+      imagesApi
+        .searchImages(queryParams)
+        .then(({ data }) => {
+          setcarImage({
+            img1: data[0].assets.huge_thumb.url,
+
+            img2: data[1].assets.huge_thumb.url,
+
+            img3: data[1].assets.huge_thumb.url,
+          });
+          
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     } catch (error) {
       alert(error.message);
       setCardata({
         loading: false,
       });
     }
-
-    const sstk = require('shutterstock-api');
-
-    const applicationConsumerId = '2N2fVuxdSjAOOhtozvbw8nFK5ERKGnmo';
-    const applicationConsumerSecret = 'BjGn6yjZmODyauQD';
-    sstk.setBasicAuth(applicationConsumerId, applicationConsumerSecret);
-
-    const imagesApi = new sstk.ImagesApi();
-
-    const queryParams = {
-      query: Cardata.brand,
-      image_type: 'photo',
-      page: 2,
-      per_page: 3,
-      sort: 'popular',
-      view: 'minimal',
-    };
-
-    imagesApi
-      .searchImages(queryParams)
-      .then(({ data }) => {
-        console.log(data);
-        console.log(data[0].assets.huge_thumb.url);
-        console.log(data[1].assets.huge_thumb.url);
-        setcarImage({
-          img1: data[0].assets.huge_thumb.url,
-
-          img2: data[1].assets.huge_thumb.url,
-
-          img3: data[1].assets.huge_thumb.url,
-        });
-        console.log(carImage);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   if (Cardata.loading) {
