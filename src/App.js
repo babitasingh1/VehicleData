@@ -6,6 +6,7 @@ import './App.css';
 export default function App() {
   const [VINno, setVINno] = useState([]);
   const [Cardata, setCardata] = useState([]);
+  const [carImage, setcarImage] = useState([]);
 
   async function Search() {
     let url = `https://api.overheid.io/voertuiggegevens/${VINno}?ovio-api-key=25b9cb5e319da93ed0e1bec60066dfaf502af7583c27bf0badbfec018cd2a6e5`;
@@ -25,6 +26,42 @@ export default function App() {
         loading: false,
       });
     }
+
+    const sstk = require('shutterstock-api');
+
+    const applicationConsumerId = '2N2fVuxdSjAOOhtozvbw8nFK5ERKGnmo';
+    const applicationConsumerSecret = 'BjGn6yjZmODyauQD';
+    sstk.setBasicAuth(applicationConsumerId, applicationConsumerSecret);
+
+    const imagesApi = new sstk.ImagesApi();
+
+    const queryParams = {
+      query: Cardata.brand,
+      image_type: 'photo',
+      page: 2,
+      per_page: 3,
+      sort: 'popular',
+      view: 'minimal',
+    };
+
+    imagesApi
+      .searchImages(queryParams)
+      .then(({ data }) => {
+        console.log(data);
+        console.log(data[0].assets.huge_thumb.url);
+        console.log(data[1].assets.huge_thumb.url);
+        setcarImage({
+          img1: data[0].assets.huge_thumb.url,
+
+          img2: data[1].assets.huge_thumb.url,
+
+          img3: data[1].assets.huge_thumb.url,
+        });
+        console.log(carImage);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   if (Cardata.loading) {
@@ -38,7 +75,7 @@ export default function App() {
           }}
         ></input>
         <button onClick={() => Search()}>Send</button>
-        <Car Cardata={Cardata} />
+        <Car Cardata={Cardata} images={carImage} />
       </div>
     );
   } else {

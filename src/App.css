@@ -12,3 +12,13 @@ p{
     padding: 1.5rem;
   }
   
+  .photoGrid {
+    max-width: 2000px;
+    margin: 0 1rem 1rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 80%;
+    box-sizing: border-box;
+  }
+
+  
