@@ -1,6 +1,13 @@
 import React from 'react';
+import SwiftSlider from 'react-swift-slider';
 
 export default function Car({ Cardata, images }) {
+  const data = [
+    { id: '1', src: images.img1 },
+    { id: '2', src: images.img2 },
+    { id: '3', src: images.img3 },
+  ];
+  console.log(data);
   return (
     <div>
       <div className='formdata'>
@@ -12,9 +19,7 @@ export default function Car({ Cardata, images }) {
         <p>{Cardata.brand}</p>
       </div>
       <div>
-        <img src={images.img1} alt={'car'}></img>
-        <img src={images.img2} alt={'car'}></img>
-        <img src={images.img3} alt={'car'}></img>
+        <SwiftSlider data={data} enableNextAndPrev={false} />
       </div>
     </div>
   );

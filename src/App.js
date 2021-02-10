@@ -46,9 +46,8 @@ export default function App() {
 
             img2: data[1].assets.huge_thumb.url,
 
-            img3: data[1].assets.huge_thumb.url,
+            img3: data[2].assets.huge_thumb.url,
           });
-          
         })
         .catch((error) => {
           alert(error.message);
